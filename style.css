@@ -1,0 +1,402 @@
+:root {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --primary-color: #3b82f6;
+    --secondary-color: #1e293b;
+    --accent-color: #6366f1;
+
+    --green-signal: #22c55e;
+    --yellow-signal: #eab308;
+    --red-signal: #ef4444;
+
+    --font-main: 'Outfit', sans-serif;
+    --font-mono: 'Inter', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background-color 0.5s ease;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+}
+
+h1 {
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    font-size: 1.8rem;
+    opacity: 0.9;
+}
+
+/* Header Controls */
+.header-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    padding: 0.8rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* Main Timer Display */
+.timer-display {
+    font-family: var(--font-mono);
+    font-size: 10rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.05em;
+}
+
+.status-indicator {
+    margin-bottom: 4rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    opacity: 0.5;
+}
+
+.controls {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 1.2rem 3rem;
+    border-radius: 999px;
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn.primary {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+.btn.primary:hover {
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn.secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Presets Panel - Cleaner Layout */
+.presets-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.presets-panel.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.presets-panel h2 {
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+}
+
+.preset-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.preset-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.preset-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.preset-card p {
+    font-size: 0.95rem;
+    opacity: 0.5;
+    font-family: var(--font-mono);
+}
+
+.text-btn {
+    background: none;
+    color: var(--text-color);
+    margin-top: 2rem;
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 1.1rem;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.text-btn:hover {
+    opacity: 1;
+    border-bottom-color: var(--text-color);
+}
+
+/* Custom Preset Form - Streamlined */
+.custom-preset-form {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.custom-preset-form h3 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-group label {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+    width: 100px;
+    text-align: left;
+}
+
+.time-inputs {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.time-inputs input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+.time-inputs input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.btn.small {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    flex: 1;
+    border-radius: 1rem;
+}
+
+/* Signal States Adjustments */
+body.signal-green {
+    background-color: var(--green-signal);
+}
+
+body.signal-yellow {
+    background-color: var(--yellow-signal);
+}
+
+body.signal-red {
+    background-color: var(--red-signal);
+}
+
+/* Adjust text color on bright backgrounds if needed */
+body.signal-green,
+body.signal-yellow,
+body.signal-red {
+    --text-color: #ffffff;
+}
+
+body.signal-yellow {
+    --text-color: #000000;
+}
+
+body.signal-yellow .btn.primary {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+body.signal-yellow .btn.secondary {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #000000;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.signal-yellow .icon-btn {
+    color: #000000;
+    border-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.signal-yellow .icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .timer-display {
+        font-size: 6rem;
+    }
+
+    .preset-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .custom-preset-form {
+        padding: 1.5rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .time-inputs {
+        width: 100%;
+    }
+}

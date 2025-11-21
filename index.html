@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toastmasters Stopwatch</title>
+    <meta name="description"
+        content="A professional, easy-to-use stopwatch designed specifically for Toastmasters meetings. Features standard green, yellow, and red timing signals and custom presets.">
+    <meta name="keywords"
+        content="Toastmasters, Stopwatch, Timer, Speech Timer, Public Speaking, Toastmasters Timer, Speech Timing">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Toastmasters Stopwatch">
+    <meta property="og:description"
+        content="Professional timing tool for Toastmasters speeches with visual signal cues.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Toastmasters Stopwatch">
+    <meta property="twitter:description"
+        content="Professional timing tool for Toastmasters speeches with visual signal cues.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>TM Timer</h1>
+            <div class="header-controls">
+                <button id="sound-toggle" class="icon-btn" aria-label="Toggle Sound">
+                    <!-- Volume Off Icon (Default) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                </button>
+                <button id="settings-btn" class="icon-btn" aria-label="Settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+                        </path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="timer-display" id="timer-display">00:00</div>
+
+            <div class="status-indicator" id="status-indicator" aria-live="polite">
+                <span class="status-text">Ready</span>
+            </div>
+
+            <div class="controls">
+                <button id="start-stop-btn" class="btn primary">Start</button>
+                <button id="reset-btn" class="btn secondary">Reset</button>
+            </div>
+        </main>
+
+        <div class="presets-panel" id="presets-panel">
+            <h2>Select Speech Type</h2>
+            <div class="preset-grid">
+                <!-- Presets will be injected here by JS -->
+            </div>
+
+
+            <div class="custom-preset-form" id="custom-preset-form" style="display: none;">
+                <h3>Custom Timer</h3>
+                <div class="input-group">
+                    <label>Green (min:sec)</label>
+                    <div class="time-inputs">
+                        <input type="number" id="custom-green-min" placeholder="Min" min="0" value="0">
+                        <input type="number" id="custom-green-sec" placeholder="Sec" min="0" max="59" value="10">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Yellow (min:sec)</label>
+                    <div class="time-inputs">
+                        <input type="number" id="custom-yellow-min" placeholder="Min" min="0" value="0">
+                        <input type="number" id="custom-yellow-sec" placeholder="Sec" min="0" max="59" value="20">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Red (min:sec)</label>
+                    <div class="time-inputs">
+                        <input type="number" id="custom-red-min" placeholder="Min" min="0" value="0">
+                        <input type="number" id="custom-red-sec" placeholder="Sec" min="0" max="59" value="30">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button id="apply-custom-btn" class="btn primary small">Apply</button>
+                    <button id="cancel-custom-btn" class="btn secondary small">Cancel</button>
+                </div>
+            </div>
+
+            <button id="close-settings" class="btn text-btn">Close</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
