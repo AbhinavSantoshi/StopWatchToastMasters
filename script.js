@@ -146,7 +146,9 @@ class Stopwatch {
 
         let newSignal = null;
 
-        if (seconds >= this.currentPreset.red) {
+        if (seconds >= this.currentPreset.red + 30) {
+            newSignal = 'disqualified';
+        } else if (seconds >= this.currentPreset.red) {
             newSignal = 'red';
         } else if (seconds >= this.currentPreset.yellow) {
             newSignal = 'yellow';
@@ -159,24 +161,25 @@ class Stopwatch {
 
             // Update status text for accessibility
             const signalName = newSignal.charAt(0).toUpperCase() + newSignal.slice(1);
-            this.statusText.textContent = `${signalName} Signal`;
+            this.statusText.textContent = newSignal === 'disqualified' ? 'Disqualified' : `${signalName} Signal`;
 
             // Play sounds based on signal
             if (newSignal === 'green') this.playBeep(1);
             if (newSignal === 'yellow') this.playBeep(2);
             if (newSignal === 'red') this.playBeep(3);
+            if (newSignal === 'disqualified') this.playBeep(4);
         }
 
         this.currentSignal = newSignal;
     }
 
     setSignal(color) {
-        this.body.classList.remove('signal-green', 'signal-yellow', 'signal-red');
+        this.body.classList.remove('signal-green', 'signal-yellow', 'signal-red', 'signal-disqualified');
         this.body.classList.add(`signal-${color}`);
     }
 
     resetSignals() {
-        this.body.classList.remove('signal-green', 'signal-yellow', 'signal-red');
+        this.body.classList.remove('signal-green', 'signal-yellow', 'signal-red', 'signal-disqualified');
         this.currentSignal = null;
     }
 
